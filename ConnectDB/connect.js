@@ -1,10 +1,8 @@
 const mongoose = require("mongoose")
-password = process.env.pass
-
-const connectionString = `mongodb+srv://sordyq:${password}@cluster0.wezicd9.mongodb.net/newsBlog?retryWrites=true&w=majority`
+const connect_String = process.env.connectionString
 
 const connectdb = async () =>{
-    await mongoose.connect(connectionString)
+    await mongoose.connect(connect_String)
     return console.log("DB is a BOMB")
 }
 

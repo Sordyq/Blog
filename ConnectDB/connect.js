@@ -1,8 +1,8 @@
 const mongoose = require("mongoose")
-const connect_String = process.env.connectionString
+const connectString = process.env.connection_String
 
 const connectdb = async () =>{
-    await mongoose.connect(connect_String)
+    await mongoose.connect(connectString)
     return console.log("DB is a BOMB")
 }
 

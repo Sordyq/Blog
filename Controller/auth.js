@@ -51,8 +51,8 @@ const SignUp = async (req,res,)=>{
         const mailOptions = {
             from: process.env.my_email,
             to: email,
-            subject: "Welcome to AJ-Blog",
-            text: "Hello! Welcome to AJ-Blog. We hope you enjoy your experience",
+            subject: "Welcome to TechCorp News",
+            text: "Hello! Welcome to TechCorp News Platform. We hope you enjoy your experience",
         }
     
         transport.sendMail(mailOptions, function(error, info){
@@ -82,7 +82,7 @@ const Login = async (req, res) =>{
         }
         const passwordMatch = await bcrypt.compare(password, existingUser.password);
         if(!passwordMatch){
-            return res.json({error: "password os incorrect"})
+            return res.json({error: "password is incorrect"})
         }
 
         const user = new Usermodel({
@@ -167,37 +167,4 @@ const forgetPassword = async (req, res) =>{
     }
 }
 
-const updatePassword = async (req, res) =>{
-    try{
-        const {password, confirm} = req.body
-
-        if (password !== confirm) {
-            return res.status(400).json({error: "Password do not match"}) 
-        }
-        const user = await Usermodel.findOne({
-            resetToken: req.params.token,
-            restExpires: { $gte: Date.now()}
-        })
-        if(!user){
-            return res.json({error: "Password reset token invalid or has expired"})
-        }
-
-        const newPassword = req.body.password;
-        const confirmPassword = req.body.confirm;
-
-        if(newPassword !== confirmPassword){
-            return res.json ({error: "Password do not match"})
-        }
-
-        await user.setPassword(password)
-        user.resetToken = undefined;
-        user.restExpires = undefined;
-        await user.save();
-        return res.json({msg: "Password successfully reset"})
-    } catch (error){
-        console.log(error)
-        res.status(500).json({error: "Server error"})
-    }
-}
-
-module.exports = { SignUp, Login, Logout, forgetPassword, updatePassword }
+module.exports = { SignUp, Login, Logout, forgetPassword}

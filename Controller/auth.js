@@ -52,7 +52,7 @@ const SignUp = async (req,res,)=>{
             from: process.env.my_email,
             to: email,
             subject: "Welcome to TechCorp News",
-            text: "Hello! Welcome to TechCorp News Platform. We hope you enjoy your experience",
+            text: "Hello! Welcome to TechCorp News Platform. We hope you enjoy your experience. Thank You",
         }
     
         transport.sendMail(mailOptions, function(error, info){
